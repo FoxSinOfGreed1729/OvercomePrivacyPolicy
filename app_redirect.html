@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#0B0D0C">
+  <title>Get Overcome on Google Play</title>
+  <meta name="description" content="Overcome: Dopamine Reset for Men. Streaks, ranks, and a human on call. Get it on Google Play.">
+  <link rel="icon" href="logo.png">
+
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=https://play.google.com/store/apps/details?id=com.overcome.recoveryapp">
+  </noscript>
+
+  <style>
+    :root {
+      --black: #0B0D0C;
+      --panel: #131716;
+      --line: #1f2724;
+      --mint: #1CC38D;
+      --mint-deep: #12AE7E;
+      --ink: #04140E;
+      --text: #F1F5F3;
+      --muted: #8FA39B;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    [hidden] { display: none !important; }
+    html { background: var(--black); }
+    body {
+      min-height: 100vh; min-height: 100dvh;
+      background: radial-gradient(120% 60% at 80% 0%, rgba(28,195,141,.14), transparent 60%), var(--black);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 56px 24px 32px;
+      border-left: 6px solid var(--mint);
+    }
+    main { width: 100%; max-width: 420px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+    .logo { width: 64px; height: 64px; border-radius: 16px; display: block; margin-bottom: 28px; }
+
+    h1 {
+      font-size: clamp(34px, 9vw, 44px); font-weight: 800;
+      letter-spacing: -.035em; line-height: 1.02; margin-bottom: 14px;
+    }
+    .quip { color: var(--muted); font-size: 16px; min-height: 3em; margin-bottom: 28px; }
+
+    /* the one moving thing: a streak-style counter for time spent on this page */
+    .timer { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+    .timer b {
+      font-size: 52px; font-weight: 800; color: var(--mint); letter-spacing: -.02em;
+      font-variant-numeric: tabular-nums; line-height: 1;
+    }
+    .timer span { color: var(--muted); font-size: 14px; }
+    .bar { height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; margin-bottom: 32px; }
+    .bar i { display: block; height: 100%; width: 0; background: var(--mint); border-radius: 4px; transition: width 1.5s linear; }
+
+    .play {
+      display: block; text-align: center;
+      background: var(--mint); color: var(--ink);
+      font-weight: 700; font-size: 17px; padding: 16px 24px; border-radius: 999px;
+      text-decoration: none;
+    }
+    .play:hover { background: #2fd49e; }
+    .play:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
+    .promise { text-align: center; color: var(--muted); font-size: 13px; margin-top: 12px; }
+    .promise strong { color: var(--mint); font-weight: 600; }
+
+    /* screenshots: only injected when the page stays visible */
+    .screens {
+      width: 100vw; margin: 40px 0 0 -30px; padding: 0 24px 8px;
+      display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+    .screens::-webkit-scrollbar { display: none; }
+    .screens img {
+      flex: 0 0 auto; width: 190px; aspect-ratio: 9 / 16; height: auto;
+      border-radius: 14px; scroll-snap-align: start; background: var(--panel);
+      border: 1px solid var(--line);
+    }
+    @media (min-width: 700px) {
+      .screens { width: min(100vw, 1000px); margin-left: 0; justify-content: flex-start; }
+    }
+
+    .fine { margin-top: 32px; font-size: 12px; color: #5f6f69; text-align: center; }
+    .fine a { color: var(--muted); }
+
+    @media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <img class="logo" src="logo.webp" width="64" height="64" alt="Overcome">
+    <h1 id="headline">Hold tight, we're teleporting you.</h1>
+    <p class="quip" id="quip">This page exists for about one second. Blink and you'll miss it.</p>
+
+    <div class="timer" aria-live="off"><b id="secs">0.0s</b><span id="timerLabel">on this page. Personal best.</span></div>
+    <div class="bar"><i id="bar"></i></div>
+
+    <a class="play" id="playLink"
+       href="https://play.google.com/store/apps/details?id=com.overcome.recoveryapp">Open in Google Play</a>
+    <p class="promise">90 days, no change? <strong>90% back.</strong></p>
+
+    <div class="screens" id="screens" hidden></div>
+  </main>
+
+  <p class="fine">
+    No trackers, no cookies. Just a very small, very fast doorway.
+    &nbsp;<a href="https://mrnobody9846.github.io/OvercomePrivacyPolicy/privacy_policy.html">Privacy Policy</a>
+  </p>
+
+  <script>
+    (function () {
+      // Set to false to make this a normal landing page (e.g. if ad review asks for one).
+      var AUTO_REDIRECT = true;
+
+      // Screenshots live in /screens. Add "04-founders-chat.webp" only if that chat is staged, not a real user's.
+      var SCREENS = [
+        ["01-streak.webp", "Live streak timer counting every second"],
+        ["02-ranks.webp", "Six ranks from Spark to Forged"],
+        ["03-challenges.webp", "Quick physical challenges for when an urge hits"],
+        ["07-report.webp", "Free personal report on your pattern"],
+        ["08-hard-part.webp", "Your program built from your report"],
+        ["05-guarantee.webp", "90 days, no change, 90% back"]
+      ];
+
+      var PKG = "com.overcome.recoveryapp";
+      var webUrl = "https://play.google.com/store/apps/details?id=" + PKG;
+      var $ = function (id) { return document.getElementById(id); };
+
+      var quips = [
+        "This page exists for about one second. Blink and you'll miss it.",
+        "You found the world's shortest website. Congrats, speedrunner.",
+        "This is the only redirect we'll ever encourage.",
+        "Our whole web team worked very hard on this one second of your life.",
+        "Loading your main character arc."
+      ];
+      $("quip").textContent = quips[Math.floor(Math.random() * quips.length)];
+
+      var params = new URLSearchParams(location.search);
+      var utm = [];
+      params.forEach(function (v, k) { if (k.indexOf("utm_") === 0) utm.push(k + "=" + v); });
+      var referrer = utm.length ? "&referrer=" + encodeURIComponent(utm.join("&")) : "";
+      webUrl += referrer;
+      $("playLink").href = webUrl;
+
+      function showScreens() {
+        var box = $("screens");
+        if (!box.hidden) return;
+        SCREENS.forEach(function (s) {
+          var img = document.createElement("img");
+          img.src = "screens/" + s[0]; img.alt = s[1];
+          img.width = 190; img.height = 338; img.loading = "lazy"; img.decoding = "async";
+          box.appendChild(img);
+        });
+        box.hidden = false;
+      }
+
+      if (!AUTO_REDIRECT) {
+        $("headline").textContent = "Break the loop in 90 days.";
+        $("quip").textContent = "Streaks, ranks, and a real human on call. One tap to Google Play. That's the whole website.";
+        document.querySelector(".timer").hidden = true;
+        document.querySelector(".bar").hidden = true;
+        showScreens();
+        return;
+      }
+
+      // Streak-style counter + progress bar while we wait.
+      var start = Date.now();
+      var tick = setInterval(function () {
+        $("secs").textContent = ((Date.now() - start) / 1000).toFixed(1) + "s";
+      }, 100);
+      requestAnimationFrame(function () { requestAnimationFrame(function () { $("bar").style.width = "100%"; }); });
+
+      if (/Android/i.test(navigator.userAgent)) {
+        var intentUrl = "intent://details?id=" + PKG + referrer +
+          "#Intent;scheme=market;package=com.android.vending;" +
+          "S.browser_fallback_url=" + encodeURIComponent(webUrl) + ";end";
+        window.location.replace(intentUrl);
+        setTimeout(function () {
+          if (!document.hidden) window.location.replace(webUrl);
+        }, 1500);
+      } else {
+        window.location.replace(webUrl);
+      }
+
+      // Still here after 2.5s? Stop the counter, own it, and show what they're about to get.
+      setTimeout(function () {
+        clearInterval(tick);
+        $("headline").textContent = "Well, this is awkward.";
+        $("quip").textContent = "The teleporter jammed. Tap the button and we'll pretend this never happened.";
+        $("timerLabel").textContent = "New personal best. Not the good kind.";
+        if (!document.hidden) showScreens();
+      }, 2500);
+    })();
+  </script>
+</body>
+</html>
