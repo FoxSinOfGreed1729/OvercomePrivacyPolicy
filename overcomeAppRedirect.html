@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Get OverCome on Google Play</title>
+  <meta name="description" content="OverCome is a recovery app for Android. Get it on Google Play.">
+
+  <!-- No-JS fallback only. Kept inside <noscript> so it can't race the smarter JS handoff below. -->
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=https://play.google.com/store/apps/details?id=com.overcome.recoveryapp">
+  </noscript>
+
+  <style>
+    :root { color-scheme: light dark; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: grid;
+      place-items: center;
+      background: #eef3f1;
+      color: #1f3a34;
+      font: 17px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      text-align: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    main { max-width: 22rem; }
+    h1 { font-size: 1.6rem; font-weight: 650; margin: 0 0 .4rem; letter-spacing: -.01em; }
+    p  { margin: 0 0 1.5rem; color: #4a625c; }
+    a.play {
+      display: inline-block;
+      padding: .85rem 1.6rem;
+      border-radius: 999px;
+      background: #2f6b5e;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    a.play:focus-visible { outline: 3px solid #9cc9bd; outline-offset: 3px; }
+    @media (prefers-color-scheme: dark) {
+      body { background: #14201d; color: #e3eeea; }
+      p { color: #a9bdb7; }
+      a.play { background: #5fa493; color: #0f1a17; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>OverCome</h1>
+    <p id="status">Opening Google Play…</p>
+    <a class="play" id="playLink"
+       href="https://play.google.com/store/apps/details?id=com.overcome.recoveryapp">Open in Google Play</a>
+  </main>
+
+  <script>
+    (function () {
+      // Set to false if you ever need this to be a plain landing page (e.g. ad review asks for one).
+      var AUTO_REDIRECT = true;
+
+      var PKG = "com.overcome.recoveryapp";
+      var webUrl = "https://play.google.com/store/apps/details?id=" + PKG;
+
+      // Optional: forward utm_* params from the ad URL into Play's own "referrer" field.
+      // This stays within Google Play; nothing is logged or sent anywhere by this page.
+      var params = new URLSearchParams(location.search);
+      var utm = [];
+      params.forEach(function (v, k) { if (k.indexOf("utm_") === 0) utm.push(k + "=" + v); });
+      if (utm.length) webUrl += "&referrer=" + encodeURIComponent(utm.join("&"));
+
+      document.getElementById("playLink").href = webUrl;
+      if (!AUTO_REDIRECT) { document.getElementById("status").textContent = "Recovery support for Android."; return; }
+
+      var isAndroid = /Android/i.test(navigator.userAgent);
+
+      if (isAndroid) {
+        // intent:// asks Android to open the Play Store app directly. In-app browsers
+        // (Instagram/Facebook) handle this more reliably than a plain https redirect.
+        // If it can't be handled, Chrome-based WebViews use browser_fallback_url.
+        var intentUrl = "intent://details?id=" + PKG +
+          (utm.length ? "&referrer=" + encodeURIComponent(utm.join("&")) : "") +
+          "#Intent;scheme=market;package=com.android.vending;" +
+          "S.browser_fallback_url=" + encodeURIComponent(webUrl) + ";end";
+        window.location.replace(intentUrl);
+
+        // Safety net: if we're still on this page shortly after, go to the web listing.
+        setTimeout(function () {
+          if (!document.hidden) window.location.replace(webUrl);
+        }, 1500);
+      } else {
+        // iPhone / desktop: Play Store app isn't available, show the web listing.
+        window.location.replace(webUrl);
+      }
+
+      // If the user comes back to this tab after the handoff, leave the button visible.
+      setTimeout(function () {
+        document.getElementById("status").textContent = "Didn't open? Use the button below.";
+      }, 2500);
+    })();
+  </script>
+</body>
+</html>
