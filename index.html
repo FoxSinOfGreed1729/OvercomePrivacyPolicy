@@ -97,15 +97,65 @@
       .doc-card { padding: 16px 18px; }
       .contact-box { padding: 20px 18px; }
     }
+    /* ── shared site nav ── */
+    .site-nav {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e9f2;
+      padding: 0 20px;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 1px 3px rgba(31,78,121,0.06);
+    }
+    .site-nav-inner {
+      max-width: 780px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: 8px 16px;
+      min-height: 54px; padding: 10px 0;
+    }
+    .site-nav a.brand {
+      color: #1F4E79; text-decoration: none;
+      font-weight: 800; font-size: 15px; letter-spacing: -0.2px;
+      display: inline-flex; align-items: center; gap: 7px;
+    }
+    .site-nav a.brand .arrow { color: #2E74B5; font-weight: 400; font-size: 17px; line-height: 1; }
+    .site-nav a.brand:hover { color: #2E74B5; text-decoration: none; }
+    .site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 6px; }
+    .site-nav li { margin: 0; }
+    .site-nav li a {
+      color: #5a6b7d; text-decoration: none;
+      font-size: 13px; font-weight: 500;
+      padding: 5px 11px; border-radius: 6px; display: block;
+      transition: background 0.15s, color 0.15s;
+    }
+    .site-nav li a:hover { color: #1F4E79; background: #EBF3FB; text-decoration: none; }
+    .site-nav li a.current { color: #fff; background: #2E74B5; font-weight: 600; }
+    .site-nav li a.current:hover { background: #1F4E79; color: #fff; }
+    @media (max-width: 600px) {
+      .site-nav { padding: 0 14px; }
+      .site-nav-inner { min-height: 0; padding: 10px 0 12px; }
+      .site-nav li a { font-size: 12px; padding: 5px 9px; }
+    }
   </style>
 </head>
 <body>
+  <nav class="site-nav" aria-label="Legal documents">
+    <div class="site-nav-inner">
+      <span class="brand" style="color:#1F4E79;font-weight:800;font-size:15px;">Overcome Legal</span>
+      <ul>
+        <li><a href="privacy_policy.html">Privacy</a></li>
+        <li><a href="overcome_terms_of_service_html.html">Terms</a></li>
+        <li><a href="overcome_refund_policy.html">Refunds</a></li>
+        <li><a href="overcome_delete_account.html">Delete Account</a></li>
+        <li><a href="disclaimer.html">Disclaimer</a></li>
+      </ul>
+    </div>
+  </nav>
 <div class="wrapper">
 
   <div class="doc-header">
     <div class="app-name">Overcome: Dopamine Reset for Men</div>
     <h1>Legal &amp; Policy Documents</h1>
     <p class="tagline">All documents are written in plain English. Select one below to read it in full.</p>
+    <p class="tagline" style="margin-top:10px; font-size:13px;">All documents effective 20 March 2026 &nbsp;|&nbsp; Last updated 13 September 2026</p>
   </div>
 
   <div class="intro">
@@ -114,7 +164,7 @@
 
   <div class="doc-grid">
 
-    <a class="doc-card" href="https://mrnobody9846.github.io/OvercomePrivacyPolicy/privacy_policy.html">
+    <a class="doc-card" href="privacy_policy.html">
       <div class="doc-info">
         <div class="doc-title">Privacy Policy</div>
         <div class="doc-desc">What data we collect, why we collect it, how long we keep it, and your rights under DPDPA 2023.</div>
@@ -122,7 +172,7 @@
       <div class="doc-arrow">&#8250;</div>
     </a>
 
-    <a class="doc-card" href="https://mrnobody9846.github.io/OvercomePrivacyPolicy/overcome_terms_of_service_html.html">
+    <a class="doc-card" href="overcome_terms_of_service_html.html">
       <div class="doc-info">
         <div class="doc-title">Terms of Service</div>
         <div class="doc-desc">The agreement between you and Overcome — subscriptions, the Cashback Guarantee, user obligations, and more.</div>
@@ -130,7 +180,7 @@
       <div class="doc-arrow">&#8250;</div>
     </a>
 
-    <a class="doc-card" href="https://mrnobody9846.github.io/OvercomePrivacyPolicy/overcome_refund_policy.html">
+    <a class="doc-card" href="overcome_refund_policy.html">
       <div class="doc-info">
         <div class="doc-title">Refund &amp; Cashback Policy</div>
         <div class="doc-desc">How the 90% Cashback Guarantee works, completion criteria, the claim process, and disqualifying conditions.</div>
@@ -138,7 +188,7 @@
       <div class="doc-arrow">&#8250;</div>
     </a>
 
-    <a class="doc-card" href="https://mrnobody9846.github.io/OvercomePrivacyPolicy/overcome_delete_account.html">
+    <a class="doc-card" href="overcome_delete_account.html">
       <div class="doc-info">
         <div class="doc-title">Delete Account &amp; Data</div>
         <div class="doc-desc">How to request deletion of your account and personal data, what gets deleted, and what is retained.</div>
@@ -146,10 +196,10 @@
       <div class="doc-arrow">&#8250;</div>
     </a>
 
-    <a class="doc-card" href="https://mrnobody9846.github.io/OvercomePrivacyPolicy/disclaimer.html">
+    <a class="doc-card" href="disclaimer.html">
       <div class="doc-info">
         <div class="doc-title">Medical Disclaimer</div>
-        <div class="doc-desc">Overcome is a habit-building tool, not a medical service or therapy platform. Read this before using the app.</div>
+        <div class="doc-desc">Overcome is a habit-building tool, not a medical service or therapy platform. Includes crisis support numbers. Read this before using the app.</div>
       </div>
       <div class="doc-arrow">&#8250;</div>
     </a>
@@ -160,13 +210,14 @@
     <h2>Questions or Concerns?</h2>
     <p>For privacy queries, data requests, refund claims, or any legal matter — email us directly. We read every email.</p>
     <a class="contact-email" href="mailto:overcomeapp0@gmail.com">overcomeapp0@gmail.com</a>
-    <p class="contact-officer">Grievance Officer: Digvijay Prashant Bhosale</p>
+    <p class="contact-officer">Grievance Officer: Digvijay Prashant Bhosale<br>Operated by Digvijay Prashant Bhosale and Adari Yashwanth</p>
   </div>
 
   <div class="doc-footer">
     Overcome: Dopamine Reset for Men &nbsp;&middot;&nbsp;
     Bengaluru, Karnataka, India &nbsp;&middot;&nbsp;
-    <a href="mailto:overcomeapp0@gmail.com">overcomeapp0@gmail.com</a>
+    <a href="mailto:overcomeapp0@gmail.com">overcomeapp0@gmail.com</a><br>
+    Last updated 13 September 2026
   </div>
 
 </div>
